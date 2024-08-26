@@ -1,0 +1,37 @@
+<div class="container">
+  <h2>Book List</h2>
+
+  <!-- Error Message -->
+  <div *ngIf="error$ | async as error" class="alert alert-danger">
+    {{ error }}
+  </div>
+
+  <!-- Add Book Form -->
+  <div class="mb-4">
+    <h3>Add a New Book</h3>
+    <form (ngSubmit)="onAddBook()">
+      <div class="form-group">
+        <label for="title">Title:</label>
+        <input type="text" id="title" [(ngModel)]="newBook.title" name="title" class="form-control" required />
+      </div>
+      <div class="form-group">
+        <label for="author">Author:</label>
+        <input type="text" id="author" [(ngModel)]="newBook.author" name="author" class="form-control" required />
+      </div>
+      <button type="submit" class="btn btn-primary">Add Book</button>
+    </form>
+  </div>
+
+  <!-- Books List -->
+  <div class="card-list">
+    <div *ngFor="let book of books$ | async" class="card">
+      <div class="card-body">
+        <h5 class="card-title">{{ book.title }}</h5>
+        <p class="card-text">{{ book.author }}</p>
+        <button (click)="viewDetails(book.id)" class="btn btn-primary">View Details</button>
+        <button (click)="editBook(book)" class="btn btn-secondary">Edit</button>
+        <button (click)="deleteBook(book.id)" class="btn btn-danger">Delete</button>
+      </div>
+    </div>
+  </div>
+</div>
